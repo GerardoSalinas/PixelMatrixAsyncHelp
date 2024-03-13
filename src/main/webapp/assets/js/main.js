@@ -29,8 +29,14 @@
 	 
  }
  let domObj = document.querySelector("div#answer");
- let inputPixels = document.querySelector("#pixels");
+ 
+// let inputPixels = document.querySelector("#pixels");
+// inputPixels no almacena nada porque no hay ningun elemento con id=pixels
+
+
  let send = document.querySelector("input#sendButton");
- send.addEventListener("click", action.send.bind(action,pixels,inputPixels,domObj));
+ //send.addEventListener("click", action.send.bind(action,pixels,inputPixels,domObj));
+ // ya no se necesita inputPixels porque se le pasan directamente al servidor
+ send.addEventListener("click", action.send.bind(action,pixels,domObj));
 
  

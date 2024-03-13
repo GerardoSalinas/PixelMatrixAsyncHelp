@@ -28,7 +28,7 @@
 	 }
 	 
 	 
-	 send (pixels,inputPixels,domObj, event){// inputPixles en lugar de inputPixels
+	 send (pixels,domObj, event){// inputPixles en lugar de inputPixels
 		
 		 let action = this;
 		 
@@ -39,6 +39,7 @@
 		 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		 
 		 xhr.addEventListener("readystatechange", action.processResponse.bind(xhr,domObj));
+		 //xhr.addEventListener("load", action.processResponse.bind(xhr,domObj));
 		 
 		 	xhr.send(action.data(height,width,pixels));
 		
@@ -47,8 +48,7 @@
 	 data(height,width,pixels){
 		 
 		 let list = [];
-		 let pixel
-		 for(pixel of pixels){
+		 for(let pixel of pixels){
 			 
 			 if (pixel.style.backgroundColor === ""){ 
 				 list.push(0);
@@ -62,7 +62,7 @@
 		 
 		 let data = list.join("");
  	
- 		return `?h=${height}&?w=${width}&?pixels=${data}`;
+ 		return `h=${height}&w=${width}&pixels=${data}`;
 	 }
 	 
 	 
@@ -70,7 +70,7 @@
 		 
 		 let xhr = this;
 		
-		if(xhr.readyState == 4 && xhr.status==200){
+		if(xhr.readyState == 4 && xhr.status == 200){
 			
 			let obj = JSON.parse(xhr.responseText);
 			
@@ -82,9 +82,10 @@
 			}else{
 				domObj.parentNode.style.backgroundColor= "yellow";
 			}
-			}else{
-				domObj.parentNode.style.backgroundColor= "red";
-			}
+			
+		}else{
+			domObj.parentNode.style.backgroundColor= "red";
+		}
 		 
 	 }
 	 
